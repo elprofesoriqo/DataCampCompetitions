@@ -1,0 +1,71 @@
+	<xs:element name="hipertext" type="hipertextType"/>  
+	<xs:element name="image" type="addressType"/>  
+	<xs:element name="link" type="addressType"/> 
+    <xs:element name="people" type="peopleType"/>
+
+    
+    w hipertexttype:
+    <xs:element name="people" type="peopleType" minOccurs="0"/>
+
+               
+    <xs:element ref="image" minOccurs="0" maxOccurs="unbounded"/>
+
+    <xs:simpleType name="shortStringType">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="30"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+	<xs:simpleType name="shortStringType">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="70"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+
+
+	<xs:complexType name="peopleType">
+<xs:simpleContent>
+<xs:extension base="xs:string">
+<xs:attribute name="person" type="personType"/>
+</xs:extension>
+</xs:simpleContent>
+</xs:complexType>
+
+
+	<xs:complexType name="achievementType">
+        <xs:sequence>
+            <xs:element name="title" type="longStringType" minOccurs="1" maxOccurs="1"/>
+            <xs:element ref="link" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element ref="image" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    
+
+	<xs:complexType name="personType">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="birth" type="xs:gYear" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="death" type="xs:gYear" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="link" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element ref="image" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="achievements" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="achievement" type="achievementType" minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+		</xs:sequence>
+        <xs:attribute name="alive" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="yes"/>
+                    <xs:enumeration value="no"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
